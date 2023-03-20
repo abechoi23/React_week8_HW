@@ -3,6 +3,7 @@ import Post from "../components/Post";
 import { Link } from "react-router-dom";
 import { DataContext } from "../contexts/DataProvider";
 
+
 export default function Inventory() {
   const { posts } = useContext(DataContext);
   

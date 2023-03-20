@@ -2,9 +2,6 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { DataContext } from "../contexts/DataProvider";
 import { collection, doc, getFirestore, getDoc } from "firebase/firestore";
-import Post from "../components/Post";
-import PostForm from "../components/postForm";
-import { AuthContext } from "../contexts/AuthProvider";
 
 
 export default function Car() {
@@ -13,8 +10,6 @@ export default function Car() {
   const [carId, setCarId] = useState(1);
   const [currSearch, setCurrSearch] = useState(1);
   const { getPost } = useContext(DataContext);
-  const { posts } = useContext(DataContext);
-  const {user} = useContext(AuthContext)
   const db = getFirestore
 
   useEffect(() => {
@@ -52,16 +47,6 @@ export default function Car() {
   return (
     <div>
       <h1>Vehicle Search</h1>
-      { user.loggedIn ? ( 
-        <>
-        <PostForm />
-        </>
-        ) : (
-        <></>
-        )}    
-      {posts.map((post) => (
-        <Post post={post} key={post.id} />
-      ))}
       {
         <form onSubmit={handleSearch}>
           <input
@@ -77,9 +62,9 @@ export default function Car() {
         </form>
       }
 
- <h2>{carData.name}</h2>
+      <h2>{carData.name}</h2>
       <p>Year: {carData.year}</p>
-      <p>Price: ${carData.sellingPrice}</p>
+      <p>Price: ${carData.selling_price}</p>
       <div>
         {carData.hideLink ? (
           <></>
@@ -95,4 +80,5 @@ export default function Car() {
       <button onClick={() => incrementCarId(1)}>Next</button>
     </div>
   );
+  
 }
